@@ -100,7 +100,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOriginPatterns(List.of("http://localhost:3000", "http://localhost:5173",
-                "http://192.168.31.57:[*]","zbrowser://h5.cloud.zalo.me","https://h5.zdn.vn")); // React, Vue...
+                "http://192.168.31.57:[*]","zbrowser://h5.cloud.zalo.me","https://h5.zdn.vn","https://be-zma.fly.dev")); // React, Vue...
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true); // quan trọng để cookie được gửi

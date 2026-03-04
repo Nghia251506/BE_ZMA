@@ -79,7 +79,12 @@ public class UserService {
 
         // Thay ID app thật của ông vào đây nhé
         String miniAppId = "4598372927419253507";
-        String activationLink = "https://zalo.me/s/" + miniAppId + "/?token=" + verifyToken;
+        String env = "DEVELOPMENT"; // Hoặc "test" tùy vào nguồn link ông lấy
+        String version = "zdev-587a668e"; // Cái mã version ông vừa copy được
+        String activationLink = String.format(
+                "https://zalo.me/s/%s/verify?env=%s&version=%s&token=%s",
+                miniAppId, env, version, verifyToken
+        );
         response.setActivationLink(activationLink);
 
         return response;

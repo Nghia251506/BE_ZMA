@@ -7,6 +7,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import com.example.demo.Entity.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,13 +27,14 @@ public class JwtTokenProvider {
 
     private static final String SECRET_KEY = "bXktc3VwZXItc2VjcmV0LXN1cGVyLXNlY3JldC1rZXktMTIzNDU2Nzg5MA==";
     private final SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
-
+    @Value("${jwt.expiration}") // Lấy từ application.properties
+    private long jwtExpirationMs;
     private final CustomUserDetailsService userDetailsService;
 
     // ---- Tạo token ----
     public String generateToken(User user) {
         Instant now = Instant.now();
-        Instant expiry = now.plus(1, ChronoUnit.DAYS);
+        Instant expiry = now.plusMillis(jwtExpirationMs);
 
         List<String> authorities = user.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
